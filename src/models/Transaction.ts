@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToMany, ManyToMa
 
 import Category from "./Category";
 
-@Entity('categories')
+@Entity('transactions')
 class Transaction {
   @PrimaryGeneratedColumn('uuid')
   id: string;
