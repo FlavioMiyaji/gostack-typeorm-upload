@@ -9,11 +9,11 @@ interface Request {
   title: string;
   value: number;
   type: 'income' | 'outcome';
-  category_title: string;
+  category: string;
 }
 
 class CreateTransactionService {
-  public async execute({ title, value, type, category_title }: Request): Promise<Transaction> {
+  public async execute({ title, value, type, category: category_title }: Request): Promise<Transaction> {
     if (type === 'outcome') {
       const { total } = await new TransactionsRepository().getBalance();
       if ((total - value) <= 0) {
