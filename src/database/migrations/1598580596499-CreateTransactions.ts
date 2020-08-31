@@ -44,7 +44,7 @@ export default class CreateTransactions1598580596499 implements MigrationInterfa
       referencedTableName: 'categories',
       onDelete: 'SET NULL',
       onUpdate: 'CASCADE',
-    }))
+    }));
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

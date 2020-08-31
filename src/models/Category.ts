@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  Entity,
+  Column,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+
+import Transaction from "./Transaction";
 
 @Entity('categories')
 class Category {
@@ -7,6 +14,9 @@ class Category {
 
   @Column()
   title: string;
+
+  @OneToMany(() => Transaction, transaction => transaction.category)
+  transaction: Transaction;
 
   @Column('timestamp with time zone')
   created_at: Date;

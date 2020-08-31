@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToMany, ManyToMany, OneToOne } from "typeorm";
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 import Category from "./Category";
 
@@ -19,7 +25,7 @@ class Transaction {
   @Column()
   category_id: string;
 
-  @OneToOne(() => Category)
+  @ManyToOne(() => Category, category => category.transaction, { eager: true })
   @JoinColumn({ name: 'category_id' })
   category: Category;
 

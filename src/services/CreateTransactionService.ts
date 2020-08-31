@@ -14,6 +14,19 @@ interface Request {
 
 class CreateTransactionService {
   public async execute({ title, value, type, category: category_title }: Request): Promise<Transaction> {
+    if(!title){
+      throw new AppError('Title is required!');
+    }
+    if (!value) {
+      throw new AppError('Value is required!');
+    }
+    if (!category_title) {
+      throw new AppError('Category is required!');
+    }
+    if (!type) {
+      throw new AppError('Type must be "income" or "outcome"!');
+    }
+
     if (type === 'outcome') {
       const { total } = await new TransactionsRepository().getBalance();
       if ((total - value) <= 0) {
@@ -26,7 +39,7 @@ class CreateTransactionService {
       where: { title: category_title }
     });
     if (!category) {
-      category = await categoryRepository.create({
+      category = categoryRepository.create({
         title: category_title,
       });
 
@@ -34,7 +47,7 @@ class CreateTransactionService {
     }
 
     const transactionRepository = getRepository(Transaction);
-    const transaction = await transactionRepository.create({
+    const transaction = transactionRepository.create({
       title,
       value,
       type,
